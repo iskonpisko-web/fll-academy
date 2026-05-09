@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FLL Academy — Learn FIRST LEGO League</title>
+<meta name="description" content="The Duolingo-style way to prepare for FIRST LEGO League tournaments. Free, fun, for kids worldwide." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='75' font-size='80'%3E%F0%9F%A4%96%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+<header class="topbar" id="topbar">
+  <div class="brand">
+    <span class="brand-icon">🤖</span>
+    <span class="brand-name">FLL Academy</span>
+  </div>
+  <div class="stats">
+    <div class="stat" title="Streak">
+      <span class="stat-icon">🔥</span>
+      <span id="streak">0</span>
+    </div>
+    <div class="stat" title="XP">
+      <span class="stat-icon">⭐</span>
+      <span id="xp">0</span>
+    </div>
+    <div class="stat hearts" title="Hearts">
+      <span class="stat-icon">❤️</span>
+      <span id="hearts">5</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================ -->
+<!-- HOME / SKILL TREE VIEW                       -->
+<!-- ============================================ -->
+<main id="view-home" class="view active">
+  <section class="hero">
+    <h1>Become an FLL Champion 🏆</h1>
+    <p class="tagline">Learn the Robot Game, Innovation Project, and Core Values — one bite-sized lesson at a time.</p>
+  </section>
+
+  <div id="tracks-container"></div>
+
+  <footer class="footer">
+    <p>Built for FLL teams worldwide · UNEARTHED 2025-26 season</p>
+  </footer>
+</main>
+
+<!-- ============================================ -->
+<!-- LESSON VIEW                                  -->
+<!-- ============================================ -->
+<main id="view-lesson" class="view">
+  <div class="lesson-header">
+    <button class="back-btn" onclick="goHome()">✕</button>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-body" id="lesson-body"></div>
+
+  <div class="lesson-footer" id="lesson-footer">
+    <button class="ai-btn" id="ai-btn" onclick="openAI()">
+      <span>💡</span> Stuck? Ask AI Coach
+    </button>
+    <button class="check-btn" id="check-btn" onclick="checkAnswer()" disabled>Check</button>
+  </div>
+</main>
+
+<!-- ============================================ -->
+<!-- LESSON-COMPLETE SCREEN                       -->
+<!-- ============================================ -->
+<main id="view-complete" class="view">
+  <div class="complete-content">
+    <div class="confetti">🎉</div>
+    <h1>Lesson Complete!</h1>
+    <div class="complete-stats">
+      <div class="complete-stat">
+        <div class="complete-stat-label">XP Earned</div>
+        <div class="complete-stat-value" id="complete-xp">+10</div>
+      </div>
+      <div class="complete-stat">
+        <div class="complete-stat-label">Accuracy</div>
+        <div class="complete-stat-value" id="complete-acc">100%</div>
+      </div>
+    </div>
+    <button class="big-btn" onclick="goHome()">Continue</button>
+  </div>
+</main>
+
+<!-- ============================================ -->
+<!-- AI COACH MODAL                               -->
+<!-- ============================================ -->
+<div id="ai-modal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeAI()">✕</button>
+    <h2>🤖 AI Coach</h2>
+    <p class="modal-sub">Ask anything about FLL — I'll keep it short and helpful.</p>
+    <textarea id="ai-question" placeholder="e.g. How do I make my robot drive straight?" rows="3"></textarea>
+    <button class="big-btn" onclick="askAI()" id="ai-submit">Ask</button>
+    <div id="ai-response" class="ai-response"></div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

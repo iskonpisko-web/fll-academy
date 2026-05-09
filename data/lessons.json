@@ -1,0 +1,474 @@
+{
+  "tracks": [
+    {
+      "id": "core-values",
+      "title": "Core Values",
+      "emoji": "🤝",
+      "color": "#FF6B6B",
+      "description": "Discover the spirit of FIRST LEGO League",
+      "skills": [
+        {
+          "id": "cv-1",
+          "title": "What is FLL?",
+          "icon": "🌟",
+          "lessons": ["cv-1-1", "cv-1-2"]
+        },
+        {
+          "id": "cv-2",
+          "title": "The 6 Core Values",
+          "icon": "💖",
+          "lessons": ["cv-2-1", "cv-2-2", "cv-2-3"]
+        },
+        {
+          "id": "cv-3",
+          "title": "Gracious Professionalism",
+          "icon": "🎩",
+          "lessons": ["cv-3-1"]
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "title": "Engineering Design",
+      "emoji": "🔧",
+      "color": "#4ECDC4",
+      "description": "How real engineers solve problems",
+      "skills": [
+        {
+          "id": "ed-1",
+          "title": "The Design Process",
+          "icon": "🔄",
+          "lessons": ["ed-1-1", "ed-1-2"]
+        },
+        {
+          "id": "ed-2",
+          "title": "Iteration & Testing",
+          "icon": "🧪",
+          "lessons": ["ed-2-1"]
+        }
+      ]
+    },
+    {
+      "id": "robot-game",
+      "title": "Robot Game",
+      "emoji": "🤖",
+      "color": "#FFD93D",
+      "description": "Program your robot to complete missions",
+      "skills": [
+        {
+          "id": "rg-1",
+          "title": "Driving Around",
+          "icon": "🚗",
+          "lessons": ["rg-1-1", "rg-1-2", "rg-1-3"]
+        },
+        {
+          "id": "rg-2",
+          "title": "Turning Accurately",
+          "icon": "🔁",
+          "lessons": ["rg-2-1", "rg-2-2"]
+        },
+        {
+          "id": "rg-3",
+          "title": "Using Sensors",
+          "icon": "👁️",
+          "lessons": ["rg-3-1", "rg-3-2"]
+        },
+        {
+          "id": "rg-4",
+          "title": "Mission Strategy",
+          "icon": "🗺️",
+          "lessons": ["rg-4-1"]
+        }
+      ]
+    },
+    {
+      "id": "innovation",
+      "title": "Innovation Project",
+      "emoji": "💡",
+      "color": "#A78BFA",
+      "description": "Solve a real-world archaeology problem",
+      "skills": [
+        {
+          "id": "ip-1",
+          "title": "Problem Statement",
+          "icon": "🔎",
+          "lessons": ["ip-1-1"]
+        },
+        {
+          "id": "ip-2",
+          "title": "Research",
+          "icon": "📚",
+          "lessons": ["ip-2-1"]
+        }
+      ]
+    },
+    {
+      "id": "judging",
+      "title": "Tournament Day",
+      "emoji": "🏆",
+      "color": "#FF8FAB",
+      "description": "Be ready for judges and the event",
+      "skills": [
+        {
+          "id": "jd-1",
+          "title": "Presenting to Judges",
+          "icon": "🎤",
+          "lessons": ["jd-1-1"]
+        }
+      ]
+    }
+  ],
+  "lessons": {
+    "cv-1-1": {
+      "title": "Welcome to FIRST LEGO League!",
+      "intro": "FIRST LEGO League (FLL) is a global program where kids age 9-14 design robots, solve real problems, and compete around the world. This year's theme is UNEARTHED — exploring archaeology!",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "What does FLL stand for?",
+          "options": ["FIRST LEGO League", "Future Lego Lab", "Friendly Lego Learners", "Fast Lego League"],
+          "correct": 0,
+          "explain": "FIRST LEGO League — FIRST means 'For Inspiration and Recognition of Science and Technology'."
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "What is the 2025-26 season theme?",
+          "options": ["Submerged", "Masterpiece", "UNEARTHED", "Cargo Connect"],
+          "correct": 2,
+          "explain": "UNEARTHED — all about archaeology and discovering the past!"
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "What ages can compete in FLL Challenge?",
+          "options": ["4-8", "9-14", "15-18", "Any age"],
+          "correct": 1,
+          "explain": "FLL Challenge is for ages 9-14. There's also FLL Explore (6-9) and FLL Discover (4-6)."
+        }
+      ]
+    },
+    "cv-1-2": {
+      "title": "The 4 Parts of FLL",
+      "intro": "An FLL team is judged on FOUR things equally — each worth 25%. It's not just about the robot!",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "Which is NOT one of the 4 judged parts of FLL?",
+          "options": ["Robot Game", "Robot Design", "Innovation Project", "Best Costume"],
+          "correct": 3,
+          "explain": "The 4 parts are: Robot Game, Robot Design, Innovation Project, and Core Values. No costume contest!"
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "How much of your total score comes from the Robot Game?",
+          "options": ["100%", "50%", "25%", "10%"],
+          "correct": 2,
+          "explain": "Each of the 4 parts is worth exactly 25%. Many kids think it's all about the robot — it's not!"
+        }
+      ]
+    },
+    "cv-2-1": {
+      "title": "Discovery & Innovation",
+      "intro": "FIRST has 6 Core Values. The first two are Discovery (exploring new skills) and Innovation (using creativity to solve problems).",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "Which Core Value matches 'We explore new skills and ideas'?",
+          "options": ["Discovery", "Impact", "Inclusion", "Fun"],
+          "correct": 0,
+          "explain": "Discovery is all about exploring and learning — perfect for archaeologists!"
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "Innovation means...",
+          "options": ["Following instructions exactly", "Using creativity and persistence to solve problems", "Working alone", "Memorizing facts"],
+          "correct": 1,
+          "explain": "Innovation = creativity + persistence. Even when something fails, you keep trying new ideas."
+        }
+      ]
+    },
+    "cv-2-2": {
+      "title": "Impact & Inclusion",
+      "intro": "Impact means using what you learn to improve the world. Inclusion means respecting each other and embracing differences.",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "Your innovation project should aim for...",
+          "options": ["Winning", "Impact on the real world", "Looking cool", "Being the most expensive"],
+          "correct": 1,
+          "explain": "Impact is the goal — your project should solve a real problem that matters."
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "Inclusion in FLL means...",
+          "options": ["Only kids who already know coding", "Boys only", "Respecting everyone and embracing differences", "The richest team wins"],
+          "correct": 2,
+          "explain": "FLL is for everyone. Different perspectives make stronger teams."
+        }
+      ]
+    },
+    "cv-2-3": {
+      "title": "Teamwork & Fun",
+      "intro": "The last two Core Values: Teamwork (we are stronger together) and Fun (we celebrate what we do)!",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "Why is teamwork the most important Core Value in FLL?",
+          "options": ["It isn't — winning matters more", "One person can't do all 4 parts well alone", "The judges said so", "It's the easiest"],
+          "correct": 1,
+          "explain": "FLL has 4 parts — robot game, robot design, project, presentation. No single kid can master all four. Teamwork is essential."
+        }
+      ]
+    },
+    "cv-3-1": {
+      "title": "Gracious Professionalism",
+      "intro": "Gracious Professionalism™ is a FIRST term. It means doing high-quality work while respecting others. Coopertition™ means helping competitors even as you compete with them.",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "A team next to you is having robot trouble. Gracious Professionalism says you should...",
+          "options": ["Laugh — it helps you win", "Ignore them", "Offer to help if you can", "Steal their robot"],
+          "correct": 2,
+          "explain": "Coopertition! Even competitors help each other in FLL. Learning matters more than winning."
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "Gracious Professionalism is about...",
+          "options": ["Being polite while doing great work", "Wearing a suit", "Speaking quietly", "Never disagreeing"],
+          "correct": 0,
+          "explain": "It's a way of working: high-quality work + respect for others. You can disagree — just do it gracefully."
+        }
+      ]
+    },
+    "ed-1-1": {
+      "title": "The Engineering Design Process",
+      "intro": "Engineers don't just build things — they follow a process: Identify → Design → Create → Iterate → Communicate. Then repeat!",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "What's the FIRST step of the engineering design process?",
+          "options": ["Build something", "Identify the problem", "Test it", "Show it off"],
+          "correct": 1,
+          "explain": "You can't solve a problem until you understand it. Identify always comes first."
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "Why is 'Iterate' a step on its own?",
+          "options": ["Because nothing works the first time", "It's not — that's a typo", "Only for older kids", "Just for show"],
+          "correct": 0,
+          "explain": "Real engineering is mostly iteration. Your robot's first run will not score perfectly. Test, fix, test, fix."
+        }
+      ]
+    },
+    "ed-1-2": {
+      "title": "Identify → Design",
+      "intro": "Identify = pick the problem. Design = sketch a plan BEFORE building. Many teams skip Design and go straight to building — and waste hours.",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "Your team wants to score the 'Excavate' mission. What should you do FIRST?",
+          "options": ["Start building right now", "Read the rulebook + sketch a plan", "Argue about who's the leader", "Eat snacks"],
+          "correct": 1,
+          "explain": "Read + sketch first. 10 minutes of planning saves 2 hours of rebuilding."
+        }
+      ]
+    },
+    "ed-2-1": {
+      "title": "Iteration: Fail Fast",
+      "intro": "Top FLL teams test their robot 50+ times per mission. Every run teaches you something. Don't be sad about a failed run — be excited about the data!",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "Your robot turns 92° when you tell it to turn 90°. What's the BEST next step?",
+          "options": ["Throw it out", "Tell it to turn 88° instead — and test", "Cry", "Blame the LEGO pieces"],
+          "correct": 1,
+          "explain": "Adjust by the error, then test. This is iteration. Real engineers do this all day."
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "What's the value of a failed test run?",
+          "options": ["Zero — failure is bad", "It tells you what to fix", "It scares the judges", "Nothing"],
+          "correct": 1,
+          "explain": "Every failure is information. The teams who test the most usually win — because they learn the most."
+        }
+      ]
+    },
+    "rg-1-1": {
+      "title": "Move Straight",
+      "intro": "Your SPIKE Prime robot needs to move forward. The most basic block: 'Move'. But getting it to drive STRAIGHT is harder than it looks!",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "Why might a robot drift left when told to drive straight?",
+          "options": ["Magic", "Wheels are different sizes, friction is uneven, or motors are slightly different", "It's tired", "Bad luck"],
+          "correct": 1,
+          "explain": "Real reason: small physical differences between left/right side. Solution → use a gyro sensor for straight driving."
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "To drive straight reliably, the BEST tool is...",
+          "options": ["Pray", "Use the gyro sensor with feedback", "Drive faster", "Add more wheels"],
+          "correct": 1,
+          "explain": "Gyro-based driving reads the robot's heading and corrects the motors in real time. Top teams always use it."
+        }
+      ]
+    },
+    "rg-1-2": {
+      "title": "Distance & Time",
+      "intro": "Two ways to tell a robot 'how far': by time (drive for 2 seconds) or by rotation (turn the wheel 5 times). One is much more reliable!",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "Which is more accurate: 'drive for 2 seconds' or 'drive 50 cm'?",
+          "options": ["Drive for 2 seconds", "Drive 50 cm (using rotation count)", "They're the same", "Neither works"],
+          "correct": 1,
+          "explain": "Distance based on wheel rotation is much more accurate. Battery level affects time-based moves."
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "A low battery makes time-based driving fail because...",
+          "options": ["It doesn't", "Robot moves slower per second when battery is low", "Time runs faster", "Magic"],
+          "correct": 1,
+          "explain": "Lower voltage = slower motors = less distance per second. Check `hub.battery.voltage()` before competing!"
+        }
+      ]
+    },
+    "rg-1-3": {
+      "title": "Acceleration & Stopping",
+      "intro": "Pro tip: robots that ramp up speed gradually drive straighter. Robots that brake suddenly tip forward. Smooth = accurate.",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "A robot that suddenly brakes at full speed will...",
+          "options": ["Stop perfectly", "Tip forward and lose accuracy", "Make a beep", "Charge faster"],
+          "correct": 1,
+          "explain": "Inertia tips the robot. Use 'coast' or gradual deceleration for accuracy."
+        }
+      ]
+    },
+    "rg-2-1": {
+      "title": "Turning with the Gyro",
+      "intro": "Turning by time or rotation is unreliable. Turning by GYRO ANGLE is the secret. Top teams turn within ±1° this way.",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "To turn 90° accurately, the best method is...",
+          "options": ["Run motor for 0.5 seconds", "Spin wheel 200°", "Read gyro until heading = 90°", "Eyeball it"],
+          "correct": 2,
+          "explain": "Gyro feedback. Battery level, friction, surface — none of those affect a gyro-based turn."
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "Before any gyro turn, you should...",
+          "options": ["Spin the robot 5 times", "Reset (calibrate) the gyro to 0", "Tell it a joke", "Take it apart"],
+          "correct": 1,
+          "explain": "Reset the gyro at the start of each run with `hub.imu.reset_heading(0)`. Otherwise drift accumulates."
+        }
+      ]
+    },
+    "rg-2-2": {
+      "title": "Pivot vs Spin Turns",
+      "intro": "Pivot turn = one wheel stops, other moves. Spin turn = wheels go opposite directions. They use different amounts of space!",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "A SPIN turn (both wheels opposite) needs space because...",
+          "options": ["The robot rotates around its center, sweeping wider", "It doesn't", "Bigger wheels", "Magic"],
+          "correct": 0,
+          "explain": "The robot's corners sweep wide. In tight spots near mission models, use a pivot turn instead."
+        }
+      ]
+    },
+    "rg-3-1": {
+      "title": "The Color Sensor",
+      "intro": "FLL mats have black lines you can use to ALIGN the robot. The color sensor reads light intensity and detects edges.",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "What's the BEST way to use lines on the FLL mat?",
+          "options": ["Avoid them", "Use the color sensor to align/stop on them", "Drive over them fast", "They're decoration"],
+          "correct": 1,
+          "explain": "Black lines are alignment helpers. Drive until sensor sees black → robot is now precisely positioned."
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "Color sensors work best when...",
+          "options": ["Far from the surface", "Close to the surface (like 5mm)", "Pointed at the ceiling", "Covered up"],
+          "correct": 1,
+          "explain": "Close to the mat. Otherwise ambient light interferes."
+        }
+      ]
+    },
+    "rg-3-2": {
+      "title": "Line Following",
+      "intro": "Pro skill: have the robot follow a black line. The sensor reads brightness; the robot steers toward whichever side is darker. Looks like magic.",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "A line-following robot steers based on...",
+          "options": ["Random guesses", "How dark vs bright the sensor reads (proportional control)", "GPS", "WiFi"],
+          "correct": 1,
+          "explain": "Proportional control. Sensor reads brightness → calculate error → steer proportionally. This is real robotics!"
+        }
+      ]
+    },
+    "rg-4-1": {
+      "title": "Mission Strategy",
+      "intro": "You can attempt missions in ANY ORDER. Smart teams plan a route through the mat that touches multiple missions per launch.",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "It's better to do 3 missions in one run than 1 mission per run because...",
+          "options": ["Setup time is limited (2.5 minutes total)", "It looks cooler", "Judges said so", "Less fuel"],
+          "correct": 0,
+          "explain": "You only have 2.5 minutes! Each launch back to home base costs precious seconds. Combine missions when possible."
+        }
+      ]
+    },
+    "ip-1-1": {
+      "title": "Writing a Problem Statement",
+      "intro": "The Innovation Project starts with a clear problem. A good problem statement says: WHO has the problem, WHAT the problem is, and WHY it matters.",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "Which is a good problem statement for UNEARTHED?",
+          "options": ["Archaeology is cool", "Archaeologists damage fragile artifacts when brushing soil — we need a gentler tool to preserve them for museums", "We want to make a robot", "Dirt is annoying"],
+          "correct": 1,
+          "explain": "Specific problem + who it affects + why it matters. The judges love specificity."
+        }
+      ]
+    },
+    "ip-2-1": {
+      "title": "Research: What Already Exists?",
+      "intro": "Before inventing, find out what's already been tried. This is RESEARCH. Sources: scientific papers, news, interviews with archaeologists.",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "Why must your team research existing solutions FIRST?",
+          "options": ["Judges check", "So you don't reinvent something that already exists, and you build on real knowledge", "It's optional", "Only for high schoolers"],
+          "correct": 1,
+          "explain": "Innovation = building on what exists. Pure invention from zero is rare. Stand on giants' shoulders."
+        }
+      ]
+    },
+    "jd-1-1": {
+      "title": "Talking to Judges",
+      "intro": "On event day, you'll present to judges 3 times (Robot Design, Innovation Project, Core Values). They're not scary — they want to hear YOUR story.",
+      "questions": [
+        {
+          "type": "multiple-choice",
+          "prompt": "Best way to handle a judge's question you don't know?",
+          "options": ["Make something up", "Honestly say 'we don't know yet, but we'd find out by...'", "Run away", "Cry"],
+          "correct": 1,
+          "explain": "Honesty + a plan. Judges respect 'I don't know but here's how we'd find out' way more than a guess."
+        },
+        {
+          "type": "multiple-choice",
+          "prompt": "Who should speak during your team's presentation?",
+          "options": ["The smartest kid", "The team captain only", "Everyone — judges want to see all team members involved", "The coach"],
+          "correct": 2,
+          "explain": "Every team member should have a role. Judges note when only 1-2 kids do all the talking."
+        }
+      ]
+    }
+  }
+}
