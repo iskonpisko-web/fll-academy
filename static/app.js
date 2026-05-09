@@ -1,20 +1,23 @@
 /* =====================================================
-   FLL Academy — client-side app
-   - Skill tree rendering
+   FLL Academy — client-side app v2
+   - Skill tree with curved SVG paths
    - Lesson player
    - Progress saved in localStorage
-   - Optional AI coach (uses /api/ask)
+   - Confetti celebration
+   - Optional AI coach
    ===================================================== */
 
 const STORAGE_KEY = "fll-academy-progress-v1";
 
-let DATA = null;             // loaded from /api/lessons
-let state = loadProgress();  // { xp, hearts, streak, lastVisit, completed: { lessonId: true } }
+let DATA = null;
+let state = loadProgress();
 
-let currentLesson = null;    // { id, ...lesson }
+let currentLesson = null;
 let currentQuestion = 0;
 let currentSelected = null;
 let correctCount = 0;
+
+const CONFETTI_COLORS = ["#FF7A1A", "#FFC857", "#4ECDC4", "#FF6B6B", "#A78BFA", "#58CC02", "#5BAEFF"];
 
 /* ---------- Persistence ---------- */
 function loadProgress() {
@@ -22,13 +25,7 @@ function loadProgress() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) return JSON.parse(raw);
   } catch (e) {}
-  return {
-    xp: 0,
-    hearts: 5,
-    streak: 0,
-    lastVisit: null,
-    completed: {},
-  };
+  return { xp: 0, hearts: 5, streak: 0, lastVisit: null, completed: {} };
 }
 
 function saveProgress() {
@@ -40,13 +37,7 @@ function updateStreak() {
   const today = new Date().toDateString();
   if (state.lastVisit !== today) {
     const yesterday = new Date(Date.now() - 86400000).toDateString();
-    if (state.lastVisit === yesterday) {
-      state.streak += 1;
-    } else if (state.lastVisit !== null) {
-      state.streak = 1;
-    } else {
-      state.streak = 1;
-    }
+    state.streak = state.lastVisit === yesterday ? state.streak + 1 : 1;
     state.lastVisit = today;
     saveProgress();
   }
@@ -68,8 +59,19 @@ function showView(name) {
 
 function goHome() {
   closeAI();
+  clearConfetti();
   renderTracks();
   showView("home");
+}
+
+/* ---------- Helper: shade a hex color ---------- */
+function shade(hex, percent) {
+  const num = parseInt(hex.replace("#", ""), 16);
+  const amt = Math.round(2.55 * percent);
+  const R = Math.max(Math.min((num >> 16) + amt, 255), 0);
+  const G = Math.max(Math.min(((num >> 8) & 0x00FF) + amt, 255), 0);
+  const B = Math.max(Math.min((num & 0x0000FF) + amt, 255), 0);
+  return "#" + ((R << 16) + (G << 8) + B).toString(16).padStart(6, "0");
 }
 
 /* ---------- Track / Skill tree rendering ---------- */
@@ -77,81 +79,139 @@ function renderTracks() {
   const container = document.getElementById("tracks-container");
   container.innerHTML = "";
 
-  DATA.tracks.forEach((track, trackIdx) => {
+  DATA.tracks.forEach((track) => {
     const trackEl = document.createElement("div");
     trackEl.className = "track";
-    trackEl.style.borderTopColor = track.color;
+    trackEl.style.setProperty("--track-color", track.color);
 
     const totalLessons = track.skills.reduce((n, s) => n + s.lessons.length, 0);
-    const doneLessons = track.skills.reduce((n, s) =>
-      n + s.lessons.filter(l => state.completed[l]).length, 0);
+    const doneLessons = track.skills.reduce(
+      (n, s) => n + s.lessons.filter(l => state.completed[l]).length,
+      0
+    );
 
     trackEl.innerHTML = `
-      <div class="track-header" style="border-color: ${track.color}40">
+      <div class="track-header">
         <div class="track-emoji">${track.emoji}</div>
         <div class="track-info">
           <h2 style="color: ${track.color}">${track.title}</h2>
-          <p>${track.description} · ${doneLessons}/${totalLessons} lessons</p>
+          <p>${track.description} · <strong>${doneLessons}/${totalLessons}</strong> lessons</p>
         </div>
       </div>
       <div class="skills" id="skills-${track.id}"></div>
     `;
     container.appendChild(trackEl);
 
-    const skillsEl = trackEl.querySelector(".skills");
-
-    // Determine which skills are unlocked: first is always unlocked,
-    // each next unlocks when ALL lessons of the previous are completed.
-    let prevAllDone = true;
-    track.skills.forEach((skill, skillIdx) => {
-      const allDone = skill.lessons.every(l => state.completed[l]);
-      const anyDone = skill.lessons.some(l => state.completed[l]);
-      const isUnlocked = (skillIdx === 0) || prevAllDone;
-
-      const skillEl = document.createElement("div");
-      skillEl.className = "skill" + (isUnlocked ? "" : " locked");
-
-      const completeClass = allDone ? " complete" : "";
-      const lockedClass = isUnlocked ? "" : " locked";
-      const bg = isUnlocked
-        ? `background: linear-gradient(135deg, ${track.color}, ${shade(track.color, -15)})`
-        : "";
-
-      skillEl.innerHTML = `
-        <div class="skill-node${completeClass}${lockedClass}" style="${bg}"
-             onclick="${isUnlocked ? `startSkill('${skill.id}')` : ''}">
-          ${isUnlocked ? skill.icon : '🔒'}
-        </div>
-        <div class="skill-title">${skill.title}</div>
-        <div class="skill-dots">
-          ${skill.lessons.map(l => `<div class="skill-dot${state.completed[l] ? ' done' : ''}"></div>`).join("")}
-        </div>
-      `;
-      skillsEl.appendChild(skillEl);
-
-      prevAllDone = prevAllDone && allDone;
-    });
+    renderSkills(track, trackEl.querySelector(".skills"));
   });
 }
 
-/* ---------- Helper: shade a hex color ---------- */
-function shade(hex, percent) {
-  const num = parseInt(hex.replace("#", ""), 16);
-  const amt = Math.round(2.55 * percent);
-  const R = (num >> 16) + amt;
-  const G = ((num >> 8) & 0x00FF) + amt;
-  const B = (num & 0x0000FF) + amt;
-  return "#" + (
-    0x1000000 +
-    (Math.max(Math.min(R, 255), 0) << 16) +
-    (Math.max(Math.min(G, 255), 0) << 8) +
-    Math.max(Math.min(B, 255), 0)
-  ).toString(16).slice(1);
+function renderSkills(track, skillsEl) {
+  // Determine unlock state for each skill (sequential)
+  let prevAllDone = true;
+  let nextUpFound = false;
+
+  track.skills.forEach((skill, skillIdx) => {
+    const allDone = skill.lessons.every(l => state.completed[l]);
+    const isUnlocked = skillIdx === 0 || prevAllDone;
+    const isNextUp = isUnlocked && !allDone && !nextUpFound;
+    if (isNextUp) nextUpFound = true;
+
+    const skillEl = document.createElement("div");
+    skillEl.className = "skill" + (isUnlocked ? "" : " locked");
+    skillEl.dataset.pos = skillIdx % 7;
+
+    const bg = isUnlocked
+      ? `background: linear-gradient(135deg, ${track.color}, ${shade(track.color, -18)})`
+      : "";
+    const completeClass = allDone ? " complete" : "";
+    const stateClass = isUnlocked ? " unlocked" : " locked";
+    const nextUpClass = isNextUp ? " next-up" : "";
+
+    skillEl.innerHTML = `
+      <div class="skill-node${completeClass}${stateClass}${nextUpClass}" style="${bg}"
+           ${isUnlocked ? `onclick="startSkill('${skill.id}')"` : ''}
+           role="button" aria-label="${skill.title}${isUnlocked ? '' : ' (locked)'}">
+        ${isUnlocked ? skill.icon : '🔒'}
+      </div>
+      <div class="skill-title">${skill.title}</div>
+      <div class="skill-dots">
+        ${skill.lessons.map(l => `<div class="skill-dot${state.completed[l] ? ' done' : ''}"></div>`).join("")}
+      </div>
+    `;
+    skillsEl.appendChild(skillEl);
+
+    prevAllDone = prevAllDone && allDone;
+  });
+
+  // Draw curved SVG paths between skill nodes after layout
+  requestAnimationFrame(() => drawSkillPaths(track, skillsEl));
 }
+
+function drawSkillPaths(track, skillsEl) {
+  // Remove old SVG layer
+  const oldSvg = skillsEl.querySelector(".skills-paths");
+  if (oldSvg) oldSvg.remove();
+
+  const skills = skillsEl.querySelectorAll(".skill");
+  if (skills.length < 2) return;
+
+  const containerRect = skillsEl.getBoundingClientRect();
+  const svgNS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.classList.add("skills-paths");
+  svg.setAttribute("width", containerRect.width);
+  svg.setAttribute("height", containerRect.height);
+  svg.style.width = "100%";
+  svg.style.height = "100%";
+
+  for (let i = 0; i < skills.length - 1; i++) {
+    const node1 = skills[i].querySelector(".skill-node");
+    const node2 = skills[i + 1].querySelector(".skill-node");
+    if (!node1 || !node2) continue;
+
+    const r1 = node1.getBoundingClientRect();
+    const r2 = node2.getBoundingClientRect();
+
+    const x1 = r1.left + r1.width / 2 - containerRect.left;
+    const y1 = r1.bottom - containerRect.top - 4;
+    const x2 = r2.left + r2.width / 2 - containerRect.left;
+    const y2 = r2.top - containerRect.top + 4;
+
+    // Quadratic curve with control point between
+    const cx = (x1 + x2) / 2;
+    const cy = (y1 + y2) / 2;
+    // Bow the curve outward based on horizontal delta
+    const offsetX = (x2 - x1) * 0.4;
+
+    const path = document.createElementNS(svgNS, "path");
+    const d = `M ${x1} ${y1} Q ${cx + offsetX} ${cy} ${x2} ${y2}`;
+    path.setAttribute("d", d);
+
+    const skill1Lessons = track.skills[i].lessons;
+    const allDone1 = skill1Lessons.every(l => state.completed[l]);
+    if (allDone1) path.classList.add("done");
+
+    svg.appendChild(path);
+  }
+
+  skillsEl.insertBefore(svg, skillsEl.firstChild);
+}
+
+// Re-draw paths on resize
+let resizeTimer = null;
+window.addEventListener("resize", () => {
+  if (!DATA) return;
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    if (document.getElementById("view-home").classList.contains("active")) {
+      renderTracks();
+    }
+  }, 150);
+});
 
 /* ---------- Skill / Lesson playback ---------- */
 function startSkill(skillId) {
-  // Find the first uncompleted lesson in the skill, or the first lesson
   for (const track of DATA.tracks) {
     const skill = track.skills.find(s => s.id === skillId);
     if (skill) {
@@ -166,7 +226,7 @@ function startLesson(lessonId) {
   const lesson = DATA.lessons[lessonId];
   if (!lesson) return;
   currentLesson = { id: lessonId, ...lesson };
-  currentQuestion = -1;        // -1 = intro screen
+  currentQuestion = -1;
   currentSelected = null;
   correctCount = 0;
 
@@ -178,13 +238,11 @@ function renderLessonStep() {
   const body = document.getElementById("lesson-body");
   const checkBtn = document.getElementById("check-btn");
 
-  // Progress bar: intro = 0, then each question fills more
   const totalSteps = currentLesson.questions.length + 1;
   const stepIdx = currentQuestion + 1;
   document.getElementById("progress-fill").style.width = `${(stepIdx / totalSteps) * 100}%`;
 
   if (currentQuestion === -1) {
-    // Intro screen
     body.innerHTML = `
       <div class="lesson-intro">
         <strong>${currentLesson.title}</strong>
@@ -197,7 +255,6 @@ function renderLessonStep() {
     return;
   }
 
-  // Question screen
   const q = currentLesson.questions[currentQuestion];
   body.innerHTML = `
     <div class="question-prompt">${q.prompt}</div>
@@ -234,7 +291,6 @@ function checkAnswer() {
   const feedback = document.getElementById("feedback");
   const isCorrect = currentSelected === q.correct;
 
-  // Disable further clicks
   opts.forEach(el => el.onclick = null);
 
   opts[currentSelected].classList.remove("selected");
@@ -272,13 +328,42 @@ function finishLesson() {
 
   state.completed[currentLesson.id] = true;
   state.xp += xpEarned;
-  // Refill one heart on completion (small reward)
   if (state.hearts < 5) state.hearts = Math.min(5, state.hearts + 1);
   saveProgress();
 
   document.getElementById("complete-xp").textContent = `+${xpEarned}`;
   document.getElementById("complete-acc").textContent = `${accuracy}%`;
   showView("complete");
+  spawnConfetti();
+}
+
+/* ---------- Confetti ---------- */
+function spawnConfetti() {
+  const layer = document.getElementById("confetti-layer");
+  layer.innerHTML = "";
+  const count = 70;
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement("div");
+    piece.className = "confetti-piece";
+    const left = Math.random() * 100;
+    const delay = Math.random() * 0.6;
+    const duration = 2.6 + Math.random() * 1.6;
+    const size = 8 + Math.random() * 8;
+    const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+    piece.style.left = `${left}%`;
+    piece.style.background = color;
+    piece.style.width = `${size}px`;
+    piece.style.height = `${size * 1.4}px`;
+    piece.style.animationDelay = `${delay}s`;
+    piece.style.animationDuration = `${duration}s`;
+    layer.appendChild(piece);
+  }
+  setTimeout(clearConfetti, 5000);
+}
+
+function clearConfetti() {
+  const layer = document.getElementById("confetti-layer");
+  if (layer) layer.innerHTML = "";
 }
 
 /* ---------- AI Coach ---------- */
@@ -347,7 +432,6 @@ async function boot() {
   }
 }
 
-// Modal click-outside-to-close
 document.getElementById("ai-modal").addEventListener("click", (e) => {
   if (e.target.id === "ai-modal") closeAI();
 });
